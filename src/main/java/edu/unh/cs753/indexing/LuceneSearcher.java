@@ -1,8 +1,10 @@
 package edu.unh.cs753.indexing;
 
 import edu.unh.cs753.utils.SearchUtils;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.similarities.BasicStats;
 import org.apache.lucene.search.similarities.SimilarityBase;
@@ -32,6 +34,17 @@ public class LuceneSearcher {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void powerNapDemo() throws IOException {
+        System.out.println("Now doing the power nap benefits query:");
+        TopDocs topDocs = query("power nap benefits", 10);
+        for (ScoreDoc sd : topDocs.scoreDocs) {
+            Document doc = searcher.doc(sd.doc);
+            String id = doc.get("id");
+            String text = doc.get("text");
+            System.out.println("Blah blah: ");
+        }
     }
 
 
