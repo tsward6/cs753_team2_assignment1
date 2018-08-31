@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class LuceneSearcher {
     final IndexSearcher searcher;
-
+    //dumb comment
     LuceneSearcher(String indexLoc) {
         searcher = SearchUtils.createIndexSearcher(indexLoc);
     }
