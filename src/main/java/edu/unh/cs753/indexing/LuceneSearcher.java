@@ -106,4 +106,18 @@ public class LuceneSearcher {
         }
         return null;
     }
+
+    public static void main(String [] args) throws IOException {
+
+        /*String path = "/home/rachel/ir/test200/test200/test200-train/train.pages.cbor-paragraphs.cbor";
+        LuceneIndexer indexer  = new LuceneIndexer("paragraphs"); // The directorey that will be made
+        indexer.doIndex(path);
+        */
+        String path = "/home/rachel/ir/P1/paragraphs";
+        LuceneSearcher searcher = new LuceneSearcher(path);
+        searcher.doPowerNapQuery();
+        searcher.doWhaleQuery();
+        searcher.doPokemonPuzzleLeagueQuery();
+
+    }
 }
