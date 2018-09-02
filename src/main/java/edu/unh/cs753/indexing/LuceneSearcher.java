@@ -36,14 +36,36 @@ public class LuceneSearcher {
         return null;
     }
 
-    public void powerNapDemo() throws IOException {
-        System.out.println("Now doing the power nap benefits query:");
+    public void doPowerNapQuery() throws IOException {
+        System.out.println("Query: power nap benefits");
         TopDocs topDocs = query("power nap benefits", 10);
         for (ScoreDoc sd : topDocs.scoreDocs) {
             Document doc = searcher.doc(sd.doc);
             String id = doc.get("id");
             String text = doc.get("text");
-            System.out.println("Blah blah: ");
+            System.out.println("id: " + id + "\ntext: " + text);
+        }
+    }
+
+    public void doWhaleQuery() throws IOException {
+        System.out.println("Query: whale vocalization production of sound");
+        TopDocs topDocs = query("whale vocalization production of sound", 10);
+        for (ScoreDoc sd : topDocs.scoreDocs) {
+            Document doc = searcher.doc(sd.doc);
+            String id = doc.get("id");
+            String text = doc.get("text");
+            System.out.println("id: " + id + "\ntext: " + text);
+        }
+    }
+
+    public void doPokemonPuzzleLeagueQuery() throws IOException {
+        System.out.println("Query: pokemon puzzle league");
+        TopDocs topDocs = query("pokemon puzzle league", 10);
+        for (ScoreDoc sd : topDocs.scoreDocs) {
+            Document doc = searcher.doc(sd.doc);
+            String id = doc.get("id");
+            String text = doc.get("text");
+            System.out.println("id: " + id + "\ntext: " + text);
         }
     }
 
@@ -83,5 +105,19 @@ public class LuceneSearcher {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String [] args) throws IOException {
+
+        /*String path = "/home/rachel/ir/test200/test200/test200-train/train.pages.cbor-paragraphs.cbor";
+        LuceneIndexer indexer  = new LuceneIndexer("paragraphs"); // The directorey that will be made
+        indexer.doIndex(path);
+        */
+        String path = "/home/rachel/ir/P1/paragraphs";
+        LuceneSearcher searcher = new LuceneSearcher(path);
+        searcher.doPowerNapQuery();
+        searcher.doWhaleQuery();
+        searcher.doPokemonPuzzleLeagueQuery();
+
     }
 }

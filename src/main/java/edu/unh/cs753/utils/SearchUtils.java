@@ -75,8 +75,8 @@ public class SearchUtils {
 
         final StringReader stringReader = new StringReader(queryString);
         try {
-            stringReader.reset();
             final TokenStream tokenStream = analyzer.tokenStream("text", stringReader);
+            tokenStream.reset();
             while (tokenStream.incrementToken()) {
                 tokens.add(tokenStream.getAttribute(CharTermAttribute.class).toString());
             }

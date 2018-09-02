@@ -18,15 +18,15 @@ public class LuceneIndexer {
     }
 
     public void doIndex(String cborLoc) throws IOException {
-        int stupidCounter = 0;
+        int counter = 0;
         for (Data.Paragraph p : IndexUtils.createParagraphIterator(cborLoc)) {
             Document doc = new Document();
             doc.add(new StringField("id", p.getParaId(), Field.Store.YES));
             doc.add(new TextField("text", p.getTextOnly(), Field.Store.YES));
             writer.addDocument(doc);
-            stupidCounter++;
-            if (stupidCounter % 20 == 0) {
-                System.out.println("Commited");
+            counter++;
+            if (counter % 20 == 0) {
+                System.out.println("Commited data");
                 writer.commit();
             }
         }
@@ -37,6 +37,7 @@ public class LuceneIndexer {
 
     public static void main(String[] args) {
        String cborLoc = "/home/hcgs/data_science/data/test200/test200-train/train.pages.cbor-paragraphs.cbor";
+
     }
 
 
