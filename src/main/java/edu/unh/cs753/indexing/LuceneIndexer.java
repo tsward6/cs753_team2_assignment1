@@ -18,20 +18,23 @@ public class LuceneIndexer {
     }
 
     public void doIndex(String cborLoc) throws IOException {
-        int stupidCounter = 0;
+        int Counter = 0;
         for (Data.Paragraph p : IndexUtils.createParagraphIterator(cborLoc)) {
             Document doc = new Document();
             doc.add(new StringField("id", p.getParaId(), Field.Store.YES));
             doc.add(new TextField("text", p.getTextOnly(), Field.Store.YES));
             writer.addDocument(doc);
-            stupidCounter++;
-            if (stupidCounter % 20 == 0) {
-                System.out.println("Commited");
+            Counter++;
+            
+            if (Counter % 20 == 0) {
+                System.out.println("Data is Committed");
                 writer.commit();
+                 // we do ths to commit the writer file
+
             }
         }
-
         writer.close();
+        //We close the writer for the indexer to function
     }
 
 
