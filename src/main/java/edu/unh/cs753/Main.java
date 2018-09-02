@@ -46,7 +46,11 @@ public class Main {
 			searcher.doPowerNapQuery();
 			searcher.doWhaleQuery();
 			searcher.doPokemonPuzzleLeagueQuery();
+		} else if (option.equals("custom")) {
+			
 		}
+
+
 
 	}
 
