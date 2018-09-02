@@ -12,9 +12,9 @@ import org.apache.lucene.search.similarities.SimilarityBase;
 import java.io.IOException;
 
 public class LuceneSearcher {
-    final IndexSearcher searcher;
+    public final IndexSearcher searcher;
 
-    LuceneSearcher(String indexLoc) {
+    public LuceneSearcher(String indexLoc) {
         searcher = SearchUtils.createIndexSearcher(indexLoc);
     }
 
@@ -105,19 +105,5 @@ public class LuceneSearcher {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void main(String [] args) throws IOException {
-
-        /*String path = "/home/rachel/ir/test200/test200/test200-train/train.pages.cbor-paragraphs.cbor";
-        LuceneIndexer indexer  = new LuceneIndexer("paragraphs"); // The directorey that will be made
-        indexer.doIndex(path);
-        */
-        String path = "/home/rachel/ir/P1/paragraphs";
-        LuceneSearcher searcher = new LuceneSearcher(path);
-        searcher.doPowerNapQuery();
-        searcher.doWhaleQuery();
-        searcher.doPokemonPuzzleLeagueQuery();
-
     }
 }

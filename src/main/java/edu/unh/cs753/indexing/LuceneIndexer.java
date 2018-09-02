@@ -13,7 +13,7 @@ import java.io.IOException;
 public class LuceneIndexer {
     private final IndexWriter writer;
 
-    LuceneIndexer(String indexLoc) {
+    public LuceneIndexer(String indexLoc) {
         writer = IndexUtils.createIndexWriter(indexLoc);
     }
 
@@ -33,13 +33,5 @@ public class LuceneIndexer {
 
         writer.close();
     }
-
-
-    public static void main(String[] args) {
-       String cborLoc = "/home/hcgs/data_science/data/test200/test200-train/train.pages.cbor-paragraphs.cbor";
-
-    }
-
-
 
 }
