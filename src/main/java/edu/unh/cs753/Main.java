@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import edu.unh.cs753.indexing.LuceneSearcher;
+import edu.unh.cs753.indexing.LuceneIndexer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
@@ -27,69 +29,25 @@ import net.sourceforge.argparse4j.inf.Subparsers;
 
 public class Main {
 
-	// Used as a wrapper around a static method: will call method and pass
-	// argument parser's parameters to it
-	private static class Exec {
-		private Consumer<Namespace> func;
-
-		Exec(Consumer<Namespace> funcArg) {
-			func = funcArg;
-		}
-
-		void run(Namespace params) {
-			func.accept(params);
-		}
-	}
-
-
-	public static ArgumentParser createArgParser() {
-		ArgumentParser parser = ArgumentParsers.newFor("program").build();
-		Subparsers subparsers = parser.addSubparsers(); // Subparsers is used to
-														// create subcommands
-
-		// Add subcommand for running index program
-		Subparser indexParser = subparsers.addParser("index") // index is the name of the subcommand
-				.setDefault("func", new Exec(Main::runIndexer)).help("Indexes paragraph corpus using Lucene.");
-		indexParser.addArgument("corpus").required(true).help("Location to paragraph corpus file (.cbor)");
-		indexParser.addArgument("--spotlight_folder").setDefault("")
-				.help("Directory containing spotlight jar file and model."
-						+ "If the directory doesn't exist, the required files are downloaded automatically."
-						+ "If no folder is specified, entity annotation is skipped.");
-		indexParser.addArgument("--out").setDefault("index")
-				.help("Directory name to create for Lucene index (default: index)");
-
-
-		return parser;
-	}
-
-	private static void runIndexer(Namespace params) {
-		String indexLocation = params.getString("out");
-		String corpusFile = params.getString("corpus");
-		String spotlight_location = params.getString("spotlight_folder");
-
-	}
-
-
 	// Main class for project
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		System.setProperty("file.encoding", "UTF-8");
-		ArgumentParser parser = createArgParser();
 
-		try {
-			// This parses the arguments (based on createArgParser) and returns
-			// the results
-			Namespace params = parser.parseArgs(args);
+		String option = args[0];
+		String path = args[1];
 
-			// We store the function that handles using these parameters in the
-			// "func" field
-			// In this example, we retrieve the parameter and cast it as Exec,
-			// which is used to run the method reference
-			// That was passed to it when the Exec was created.
-			((Exec) params.get("func")).run(params);
-		} catch (ArgumentParserException e) {
-			parser.handleError(e);
-			System.exit(1);
+		if (option.equals("index")) {
+			LuceneIndexer indexer  = new LuceneIndexer("paragraphs"); // The directory that will be made
+			indexer.doIndex(path);
 		}
+		else if (option.equals("search")) {
+			System.out.println("here");
+			LuceneSearcher searcher = new LuceneSearcher(path);
+			searcher.doPowerNapQuery();
+			searcher.doWhaleQuery();
+			searcher.doPokemonPuzzleLeagueQuery();
+		}
+
 	}
 
 }
