@@ -69,7 +69,33 @@ public class LuceneSearcher {
         }
     }
 
+    public void custom (String qinput) throws IOException {
+        System.out.println("This is custom Scoring function");
+        SimilarityBase mysimilarity= new SimilarityBase() {
+            @Override
+            protected float score(BasicStats basicStats, float v, float v1) {
+                float sum = 0.0f;
+                sum += v;
+                return sum;
+            }
 
+            @Override
+            public String toString() {
+                return null;
+            }
+        };
+        searcher.setSimilarity(mysimilarity);
+
+        TopDocs topDocs= query(qinput,10);
+        for (ScoreDoc sd : topDocs.scoreDocs) {
+            Document doc = searcher.doc(sd.doc);
+            String id = doc.get("id");
+            String text = doc.get("text");
+            System.out.println("id: " + id + "\ntext: " + text);
+        }
+
+
+    }
     /**
      * Function: queryWithCustomScore
      * Desc: Queries Lucene paragraph corpus using a custom similarity function.
