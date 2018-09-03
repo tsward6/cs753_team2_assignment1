@@ -69,7 +69,7 @@ public class LuceneSearcher {
         }
     }
 
-    public void custom (String qinput) throws IOException {
+    public void custom () throws IOException {
         System.out.println("This is custom Scoring function");
         SimilarityBase mysimilarity= new SimilarityBase() {
             @Override
@@ -86,13 +86,13 @@ public class LuceneSearcher {
         };
         searcher.setSimilarity(mysimilarity);
 
-        TopDocs topDocs= query(qinput,10);
-        for (ScoreDoc sd : topDocs.scoreDocs) {
-            Document doc = searcher.doc(sd.doc);
-            String id = doc.get("id");
-            String text = doc.get("text");
-            System.out.println("id: " + id + "\ntext: " + text);
-        }
+//        TopDocs topDocs= query(qinput,10);
+//        for (ScoreDoc sd : topDocs.scoreDocs) {
+//            Document doc = searcher.doc(sd.doc);
+//            String id = doc.get("id");
+//            String text = doc.get("text");
+//            System.out.println("id: " + id + "\ntext: " + text);
+//        }
 
 
     }

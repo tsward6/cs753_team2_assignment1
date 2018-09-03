@@ -48,10 +48,12 @@ public class Main {
 			searcher.doPokemonPuzzleLeagueQuery();
 		} else if (option.equals("custom")) {
 
-           String q = args[2];
            LuceneSearcher searcher= new LuceneSearcher(path);
 
-           searcher.custom(q);
+           searcher.custom();
+			searcher.doPowerNapQuery();
+			searcher.doWhaleQuery();
+			searcher.doPokemonPuzzleLeagueQuery();
 
 		}
 
