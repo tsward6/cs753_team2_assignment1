@@ -74,9 +74,9 @@ public class LuceneSearcher {
         SimilarityBase mysimilarity= new SimilarityBase() {
             @Override
             protected float score(BasicStats basicStats, float v, float v1) {
-                float sum = 0.0f;
-                sum += v;
-                return sum;
+                float sum1 = 0.0f;
+                sum1 += v;
+                return sum1;
             }
 
             @Override
